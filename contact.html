@@ -117,10 +117,10 @@
                         <h6 class="txt-primary">Contáctenos</h6>
                         <h1 class="mb-4">Siéntase libre de comunicarse con nosotros</h1>
                         <p class="mb-4">Para cotizacion</p>
-                        <form action="contact.php" method="post">
+                        <form id="contact-form" action="contact.php" method="POST">
                             <div class="row g-3">
                                 <div class="col-md-6 w-100">
-                                    <select class="form-select" aria-label="Default select example" name="departamento">
+                                    <select class="form-select" aria-label="Default select example" name="departamento" required>
                                         <option selected>Seleccione Departamento</option>
                                         <option value="sales">Ventas</option>
                                         <option value="RRHH">Recursos Humanos</option>
@@ -129,25 +129,25 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating elem-group">
-                                        <input type="text" class="form-control" id="name" placeholder="Nombre" name="visitor_name">
+                                        <input type="text" class="form-control" id="name" placeholder="Nombre" name="visitor_name" required>
                                         <label for="name">Nombre</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating elem-group">
-                                        <input type="email" class="form-control" id="email" placeholder="Email" name="visitor_email">
+                                        <input type="email" class="form-control" id="email" placeholder="Email" name="visitor_email" required>
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating elem-group">
-                                        <input type="text" class="form-control" id="subject" placeholder="Asunto">
+                                        <input type="text" class="form-control" id="subject" placeholder="Asunto" required>
                                         <label for="subject">Asunto</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating elem-group">
-                                        <textarea class="form-control" placeholder="Deje su mensaje aquí" id="message" style="height: 100px" name="visitor_message"></textarea>
+                                        <textarea class="form-control" placeholder="Deje su mensaje aquí" id="message" style="height: 100px" name="visitor_message" required></textarea>
                                         <label for="message">Mensaje</label>
                                     </div>
                                 </div>
@@ -260,6 +260,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Javascript CDN validation -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 </body>
 
 </html>

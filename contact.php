@@ -1,6 +1,6 @@
 <?php
 
-if($_POST) {
+if(!empty($_POST)) {
     $visitor_name = "";
     $visitor_email = "";
     $email_title = "";
@@ -46,6 +46,7 @@ if($_POST) {
     .'From: ' . $visitor_email . "\r\n";
      
     mail($recipient, $email_title, $visitor_message, $headers);
+    echo "message send";
      
 } else {
     echo '<p>Something went wrong</p>';
