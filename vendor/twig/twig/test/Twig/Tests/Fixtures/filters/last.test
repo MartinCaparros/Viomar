@@ -5,10 +5,13 @@
 {{ {a: 1, b: 2, c: 3, d: 4}|last }}
 {{ '1234'|last }}
 {{ arr|last }}
+{{ 'Ä€é'|last }}
+{{ ''|last }}
 --DATA--
-return array('arr' => new ArrayObject(array(1, 2, 3, 4)))
+return ['arr' => new \ArrayObject([1, 2, 3, 4])]
 --EXPECT--
 4
 4
 4
 4
+é

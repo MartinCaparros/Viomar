@@ -9,65 +9,73 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_Node_MacroTest extends Twig_Test_NodeTestCase
+use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\NameExpression;
+use Twig\Node\MacroNode;
+use Twig\Node\Node;
+use Twig\Node\TextNode;
+use Twig\Test\NodeTestCase;
+
+class Twig_Tests_Node_MacroTest extends NodeTestCase
 {
-    /**
-     * @covers Twig_Node_Macro::__construct
-     */
     public function testConstructor()
     {
-        $body = new Twig_Node_Text('foo', 1);
-        $arguments = new Twig_Node(array(new Twig_Node_Expression_Name('foo', 1)), array(), 1);
-        $node = new Twig_Node_Macro('foo', $body, $arguments, 1);
+        $body = new TextNode('foo', 1);
+        $arguments = new Node([new NameExpression('foo', 1)], [], 1);
+        $node = new MacroNode('foo', $body, $arguments, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
         $this->assertEquals($arguments, $node->getNode('arguments'));
         $this->assertEquals('foo', $node->getAttribute('name'));
     }
 
-    /**
-     * @covers Twig_Node_Macro::compile
-     * @dataProvider getTests
-     */
-    public function testCompile($node, $source, $environment = null)
-    {
-        parent::testCompile($node, $source, $environment);
-    }
-
     public function getTests()
     {
-        $body = new Twig_Node_Text('foo', 1);
-        $arguments = new Twig_Node(array(
-            'foo' => new Twig_Node_Expression_Constant(null, 1),
-            'bar' => new Twig_Node_Expression_Constant('Foo', 1),
-        ), array(), 1);
-        $node = new Twig_Node_Macro('foo', $body, $arguments, 1);
+        $body = new TextNode('foo', 1);
+        $arguments = new Node([
+            'foo' => new ConstantExpression(null, 1),
+            'bar' => new ConstantExpression('Foo', 1),
+        ], [], 1);
+        $node = new MacroNode('foo', $body, $arguments, 1);
 
-        return array(
-            array($node, <<<EOF
+        if (PHP_VERSION_ID >= 50600) {
+            $declaration = ', ...$__varargs__';
+            $varargs = '$__varargs__';
+        } else {
+            $declaration = '';
+            $varargs = 'func_num_args() > 2 ? array_slice(func_get_args(), 2) : []';
+        }
+
+        return [
+            [$node, <<<EOF
 // line 1
-public function getfoo(\$_foo = null, \$_bar = "Foo")
+public function getfoo(\$__foo__ = null, \$__bar__ = "Foo"$declaration)
 {
-    \$context = \$this->env->mergeGlobals(array(
-        "foo" => \$_foo,
-        "bar" => \$_bar,
-    ));
+    \$context = \$this->env->mergeGlobals([
+        "foo" => \$__foo__,
+        "bar" => \$__bar__,
+        "varargs" => $varargs,
+    ]);
 
-    \$blocks = array();
+    \$blocks = [];
 
     ob_start();
     try {
         echo "foo";
-    } catch (Exception \$e) {
+    } catch (\Exception \$e) {
+        ob_end_clean();
+
+        throw \$e;
+    } catch (\Throwable \$e) {
         ob_end_clean();
 
         throw \$e;
     }
 
-    return ('' === \$tmp = ob_get_clean()) ? '' : new Twig_Markup(\$tmp, \$this->env->getCharset());
+    return ('' === \$tmp = ob_get_clean()) ? '' : new Markup(\$tmp, \$this->env->getCharset());
 }
 EOF
-            ),
-        );
+            ],
+        ];
     }
 }

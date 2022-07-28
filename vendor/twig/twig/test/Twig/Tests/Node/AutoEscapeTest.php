@@ -9,36 +9,29 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_Node_AutoEscapeTest extends Twig_Test_NodeTestCase
+use Twig\Node\AutoEscapeNode;
+use Twig\Node\Node;
+use Twig\Node\TextNode;
+use Twig\Test\NodeTestCase;
+
+class Twig_Tests_Node_AutoEscapeTest extends NodeTestCase
 {
-    /**
-     * @covers Twig_Node_AutoEscape::__construct
-     */
     public function testConstructor()
     {
-        $body = new Twig_Node(array(new Twig_Node_Text('foo', 1)));
-        $node = new Twig_Node_AutoEscape(true, $body, 1);
+        $body = new Node([new TextNode('foo', 1)]);
+        $node = new AutoEscapeNode(true, $body, 1);
 
         $this->assertEquals($body, $node->getNode('body'));
-        $this->assertEquals(true, $node->getAttribute('value'));
-    }
-
-    /**
-     * @covers Twig_Node_AutoEscape::compile
-     * @dataProvider getTests
-     */
-    public function testCompile($node, $source, $environment = null)
-    {
-        parent::testCompile($node, $source, $environment);
+        $this->assertTrue($node->getAttribute('value'));
     }
 
     public function getTests()
     {
-        $body = new Twig_Node(array(new Twig_Node_Text('foo', 1)));
-        $node = new Twig_Node_AutoEscape(true, $body, 1);
+        $body = new Node([new TextNode('foo', 1)]);
+        $node = new AutoEscapeNode(true, $body, 1);
 
-        return array(
-            array($node, "// line 1\necho \"foo\";"),
-        );
+        return [
+            [$node, "// line 1\necho \"foo\";"],
+        ];
     }
 }

@@ -19,6 +19,10 @@ The ``date`` filter formats a date to a given format:
 
     {{ post.published_at|date("m/d/Y") }}
 
+The format specifier is the same as supported by `date`_,
+except when the filtered data is of type `DateInterval`_, when the format must conform to
+`DateInterval::format`_ instead.
+
 The ``date`` filter accepts strings (it must be in a format supported by the
 `strtotime`_ function), `DateTime`_ instances, or `DateInterval`_ instances. For
 instance, to display the current date, filter the word "now":
@@ -49,7 +53,10 @@ dates and the second one is the default format for date intervals:
 
 .. code-block:: php
 
-    $twig = new Twig_Environment($loader);
+    $twig = new \Twig\Environment($loader);
+    $twig->getExtension('\Twig\Extension\CoreExtension')->setDateFormat('d/m/Y', '%d days');
+
+    // before Twig 1.26
     $twig->getExtension('core')->setDateFormat('d/m/Y', '%d days');
 
 Timezone
@@ -74,15 +81,20 @@ The default timezone can also be set globally by calling ``setTimezone()``:
 
 .. code-block:: php
 
-    $twig = new Twig_Environment($loader);
+    $twig = new \Twig\Environment($loader);
+    $twig->getExtension('\Twig\Extension\CoreExtension')->setTimezone('Europe/Paris');
+
+    // before Twig 1.26
     $twig->getExtension('core')->setTimezone('Europe/Paris');
 
 Arguments
 ---------
 
- * ``format``:   The date format
- * ``timezone``: The date timezone
+* ``format``:   The date format
+* ``timezone``: The date timezone
 
-.. _`strtotime`:    http://www.php.net/strtotime
-.. _`DateTime`:     http://www.php.net/DateTime
-.. _`DateInterval`: http://www.php.net/DateInterval
+.. _`strtotime`:            https://secure.php.net/strtotime
+.. _`DateTime`:             https://secure.php.net/DateTime
+.. _`DateInterval`:         https://secure.php.net/DateInterval
+.. _`date`:                 https://secure.php.net/date
+.. _`DateInterval::format`: https://secure.php.net/DateInterval.format

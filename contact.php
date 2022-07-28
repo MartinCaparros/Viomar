@@ -1,6 +1,22 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-if(!empty($_POST)) {
+require 'vendor/autoload.php';
+
+$mail = new PHPMailer(true);
+$mail->isSMTP();
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+$mail->Host = 'martincaparross@gmail.com';
+$mail->Port = 465;
+$mail->SMPTSecure = PHPMailer::ENCRYPTION_STMPS;
+$mail->SMTPAuth = true;
+$mail->Username = 'martincaparross@gmail.com';
+$mail->Password = 'Cartuchera155';
+$mail->setFrom('martincaparross@gmail.com', 'Martin Caparros');
+
+try {
     $visitor_name = "";
     $visitor_email = "";
     $email_title = "";
@@ -41,14 +57,21 @@ if(!empty($_POST)) {
         $recipient = "losadaagostina@gmail.com";
     }
      
-    $headers  = 'MIME-Version: 1.0' . "\r\n"
-    .'Content-type: text/html; charset=utf-8' . "\r\n"
-    .'From: ' . $visitor_email . "\r\n";
+    $headers  = 'From: ' . $visitor_email . "\r\n" . 'Reply-to:`' . $recipent . '\r\n' . 'X-Mailer: PHP/' . phpversion();
      
-    mail($recipient, $email_title, $visitor_message, $headers);
-     
-} else {
-    echo '<p>Something went wrong</p>';
-}
- 
+    $mail->addReplyTo($visitor_email, $visitor_name);
+    $mail->addAddress($recipent);
+    $mail->Subject = $email_title;
+    $mail->AltBody = $visitor_message;
+
+    if (!$mail->send()) {
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        
+    }
+
+
+} catch (Exception $e) {
+
+};
 ?>

@@ -8,9 +8,9 @@ The ``format`` filter formats a given string by replacing the placeholders
 
     {{ "I like %s and %s."|format(foo, "bar") }}
 
-    {# returns I like foo and bar
+    {# outputs I like foo and bar
        if the foo parameter equals to the foo string. #}
 
-.. _`sprintf`: http://www.php.net/sprintf
+.. _`sprintf`: https://secure.php.net/sprintf
 
 .. seealso:: :doc:`replace<replace>`
