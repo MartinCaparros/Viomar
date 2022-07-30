@@ -2,6 +2,7 @@
 :root {
     --primary: #081d59;
     --secondary: #1f24e0 ;
+    --red : #a20606;
     --light: #F6F7F8;
     --dark: #1A2A36;
 }
@@ -10,16 +11,55 @@
 .txt-primary {
     color:#081d59 !important;
 }
+.txt-red {
+    color:var(--red)
+}
 a {
     color: var(--primary)
 }
 a:hover {
     color: var(--secondary)
 }
+.up-bar {
+    background-color: #a20606 !important;
+}
+.c-class {
+    display: flex;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    overflow-wrap: break-word;
+}
+  
 
 .icon-primary {
     background-color: #081d59;
 }
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+
+
 
 
 /*  */
@@ -115,7 +155,7 @@ a:hover {
 .navbar .navbar-nav .nav-link {
     margin-right: 30px;
     padding: 25px 0;
-    color: var(--primary);
+    color: var(--red);
     font-size: 15px;
     font-weight: 500;
     text-transform: uppercase;
@@ -124,7 +164,7 @@ a:hover {
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active {
-    color: var(--secondary);
+    color: #ff0000;
 }
 
 .navbar .dropdown-toggle::after {
