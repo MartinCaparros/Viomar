@@ -36,6 +36,11 @@ a:hover {
     overflow-wrap: break-word;
 }
   
+.paragrahps {
+    font-size: 20px;
+    color:black;
+    text-align: justify;
+}
 
 .icon-primary {
     background-color: #081d59;
@@ -50,13 +55,17 @@ a:hover {
 	color:#FFF;
 	border-radius:50px;
 	text-align:center;
-  font-size:30px;
+    font-size:30px;
 	box-shadow: 2px 2px 3px #999;
   z-index:100;
 }
 
 .my-float{
 	margin-top:16px;
+}
+
+.icon-footer {
+    color: white;
 }
 
 
