@@ -67,7 +67,10 @@ a:hover {
 .icon-footer {
     color: white;
 }
-
+.card-text-body {
+    color:black;
+    font-weight: 500;
+}
 
 
 
