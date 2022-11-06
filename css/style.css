@@ -57,7 +57,7 @@ a:hover {
 	text-align:center;
     font-size:30px;
 	box-shadow: 2px 2px 3px #999;
-  z-index:100;
+    z-index:100;
 }
 
 .my-float{
@@ -71,9 +71,77 @@ a:hover {
     color:black;
     font-weight: 500;
 }
+.certificationImgContainer {
+    height: 450px;
+    width: 50%;
+    margin-left: 20px;
+}
+.certificationImg {
+    height: 100%;
+    width: 100%;
+}
+.imgContainer {
+    height: 800px;
+    width: 100%;
+}
 
+.certificationList {
+    display: flex;
+    flex-direction: column;
+}
+.custom-icon-holder {
+    background-color: #081d59;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    height: 30px;
+    width: 30px;
+}
 
+.certificationContainer {
+    justify-content: center;
+    font-size: 1rem;
+    color: #081d59;
+    font-weight: 700;
+}
 
+.mainImg {
+    height: 100%;
+    width: 100%;
+}
+@media (max-width: 480px) {
+    .imgContainer {
+        height: 400px;
+    }
+    .certificationImgContainer {
+        height: 300px;
+        width: 80%;
+        margin-left: 20px;
+    }
+    .certificationList {
+        font-size: 1rem;
+    }
+    .certificationContainer {
+        flex-direction: column;
+    }
+}
+@media (max-width: 768px) {
+    .imgContainer {
+        height: 400px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .imgContainer {
+        height: 600px;
+    }
+}
+@media (max-width: 1200px) {
+    .imgContainer {
+        height: 600px;
+    }
+}
 /*  */
 
 .fw-medium {
@@ -289,6 +357,10 @@ a:hover {
 
 .page-header {
     background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../images/IMG-8528\ \(1\).jpg) center center no-repeat;
+    background-size: cover;
+}
+.page-quality-header {
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../fotos-viomar/drive-download-20221027T193051Z-001/Nay\ Charo\ -\ Viomar\ -54.jpg) center center no-repeat;
     background-size: cover;
 }
 
