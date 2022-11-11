@@ -73,7 +73,7 @@ a:hover {
 }
 .certificationImgContainer {
     height: 450px;
-    width: 50%;
+    width: 40%;
     margin-left: 20px;
 }
 .certificationImg {
@@ -84,7 +84,9 @@ a:hover {
     height: 800px;
     width: 100%;
 }
-
+.carousel-item {
+    max-height: 1000px;
+}
 .certificationList {
     display: flex;
     flex-direction: column;
@@ -96,7 +98,7 @@ a:hover {
     justify-content: center;
     border-radius: 100px;
     height: 30px;
-    width: 30px;
+    min-width: 30px;
 }
 
 .certificationContainer {
@@ -110,13 +112,44 @@ a:hover {
     height: 100%;
     width: 100%;
 }
+.history-div {
+    display:flex;
+    justify-content: center;
+}
+.history-text-container {
+    width: 50%;
+}
 @media (max-width: 480px) {
+    .history-text-container {
+        width: 80%;
+    }
+    .card-holder {
+        display:flex;
+        flex-direction: column;
+    }
+    .float {
+        right: 20px;
+        height: 45px;
+        width: 45px;
+    }
+    .footerFont{
+        font-size: 0.75rem !important;
+    }
+    .text-white {
+        font-size: 1rem !important;
+    }
+    .my-float {
+        margin-top:0px;
+    }
+    .paragrahps {
+        font-size: 1rem;
+    }
     .imgContainer {
         height: 400px;
     }
     .certificationImgContainer {
         height: 300px;
-        width: 80%;
+        width: 90%;
         margin-left: 20px;
     }
     .certificationList {
@@ -139,7 +172,7 @@ a:hover {
 }
 @media (max-width: 1200px) {
     .imgContainer {
-        height: 600px;
+        height: 400px;
     }
 }
 /*  */

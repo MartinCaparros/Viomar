@@ -1,32 +1,10 @@
 <?php
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require 'vendor/autoload.php';
-
-
-require 'vendor/autoload.php';
-
-$mail = new PHPMailer(true);
-$mail->isSMTP();
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-$mail->Host = 'martincaparross@gmail.com';
-$mail->Port = 465;
-$mail->SMPTSecure = PHPMailer::ENCRYPTION_STMPS;
-$mail->SMTPAuth = true;
-$mail->Username = 'martincaparross@gmail.com';
-$mail->Password = 'Cartuchera155';
-$mail->setFrom('martincaparross@gmail.com', 'Martin Caparros');
-
-try {
+ 
+if($_POST) {
     $visitor_name = "";
     $visitor_email = "";
     $email_title = "";
-    $departamento = "";
+    $concerned_department = "";
     $visitor_message = "";
      
     if(isset($_POST['visitor_name'])) {
@@ -42,42 +20,36 @@ try {
         $email_title = filter_var($_POST['email_title'], FILTER_SANITIZE_STRING);
     }
      
-    if(isset($_POST['departamento'])) {
-        $departamento = filter_var($_POST['departamento'], FILTER_SANITIZE_STRING);
+    if(isset($_POST['concerned_department'])) {
+        $concerned_department = filter_var($_POST['concerned_department'], FILTER_SANITIZE_STRING);
     }
      
     if(isset($_POST['visitor_message'])) {
         $visitor_message = htmlspecialchars($_POST['visitor_message']);
     }
      
-    if($departamento == "sales") {
-        $recipient = "martincaparross@gmail.com";
+    if($concerned_department == "sales") {
+        $recipient = "pguglielmi@viomar.com.ar";
     }
-    else if($departamento == "RRHH") {
-        $recipient = "losadaagostina@gmail.com";
-    }
-    else if($departamento == "customer_services") {
-        $recipient = "losadaagostina@gmail.com";
+    else if($concerned_department == "RRHH") {
+        $recipient = "rrhh@viomar.com.ar";
     }
     else {
-        $recipient = "losadaagostina@gmail.com";
+        $recipient = "rrhh@dviomar.com.ar";
     }
      
-    $headers  = 'From: ' . $visitor_email . "\r\n" . 'Reply-to:`' . $recipent . '\r\n' . 'X-Mailer: PHP/' . phpversion();
+    $headers  = 'MIME-Version: 1.0' . "\r\n"
+    .'Content-type: text/html; charset=utf-8' . "\r\n"
+    .'From: ' . $visitor_email . "\r\n";
      
-    $mail->addReplyTo($visitor_email, $visitor_name);
-    $mail->addAddress($recipent);
-    $mail->Subject = $email_title;
-    $mail->AltBody = $visitor_message;
-
-    if (!$mail->send()) {
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    if(mail($recipient, $email_title, $visitor_message, $headers)) {
+        echo "<p>Gracias por contactarte, $visitor_name. El departamento elegido se contactará a la brevedad.</p>";
     } else {
-        
+        echo '<p>Lo siento pero un ocurrió un error y no pudimos recibir tu email, por favor contáctese por teléfono, muchas gracias.</p>';
     }
-
-
-} catch (Exception $e) {
-
-};
+     
+} else {
+    echo '<p>Something went wrong</p>';
+}
+ 
 ?>
